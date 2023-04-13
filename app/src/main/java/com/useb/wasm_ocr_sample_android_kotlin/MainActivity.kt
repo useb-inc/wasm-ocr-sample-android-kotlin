@@ -25,6 +25,9 @@ class MainActivity : AppCompatActivity() {
         binding!!.btnAlien.setOnClickListener(btnOnClickListener)
         binding!!.btnCredit.setOnClickListener(btnOnClickListener)
         binding!!.btnPassport.setOnClickListener(btnOnClickListener)
+        binding!!.btnIdcardSsa.setOnClickListener(btnOnClickListener)
+        binding!!.btnAlienSsa.setOnClickListener(btnOnClickListener)
+        binding!!.btnPassportSsa.setOnClickListener(btnOnClickListener)
 
     }
 
@@ -37,7 +40,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun isValid(scanType: String) : Boolean {
         val types = ArrayList(
-            listOf("idcard", "passport", "alien", "credit")
+            listOf("idcard", "passport", "alien", "credit", "idcard-ssa", "passport-ssa", "alien-ssa")
         )
 
         return types.contains(scanType)
