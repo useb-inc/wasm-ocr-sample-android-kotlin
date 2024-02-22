@@ -27,7 +27,7 @@ class WebViewActivity : AppCompatActivity() {
     private var binding: ActivityWebViewBinding? = null
     private var webview: WebView? = null
     private val OCR_LICENSE_KEY =
-        "FPkTB6QsFFW5YwiqAa2zk5yy0ylLfYSryPM1fnVJKLgWBk6FgEPMBP9RJiCd24ldGurGnkAUPatzrf9Km90ADqjlTF/FHFyculQP21k4pxkfbSRs="
+        "FPkTBLFIa/Tn/mCZ5WKPlcuDxyb2bJVPSURXacnhj2d82wm39/tFIjCPpMsiXoPxGbN6G6l5gSLMBfwB6nwgIJZFWX0WlS1Jl49321wADP7yEhxE="
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -92,6 +92,7 @@ class WebViewActivity : AppCompatActivity() {
     private fun dataToJson(ocrType: String?): JSONObject {
         val settings = JSONObject()
         settings.put("licenseKey", this.OCR_LICENSE_KEY)
+        settings.put("useEncryptMode", intent.getStringExtra("useEncryptMode"))
         val jsonObject = JSONObject()
         jsonObject.put("ocrType", ocrType)
         jsonObject.put("settings", settings)
@@ -194,6 +195,7 @@ class WebViewActivity : AppCompatActivity() {
         val reviewResultJsonObject = JSONObject(reviewResult)
         var originalImage = reviewResultJsonObject.getString("ocr_origin_image")
         var maskingImage = reviewResultJsonObject.getString("ocr_masking_image")
+        var faceImage = reviewResultJsonObject.getString("ocr_face_image")
         if (originalImage !== "null") {
             originalImage = originalImage.substring(0, 20) + "...생략(omit)..."
             reviewResultJsonObject.put("ocr_origin_image", originalImage)
@@ -201,6 +203,10 @@ class WebViewActivity : AppCompatActivity() {
         if (maskingImage !== "null") {
             maskingImage = maskingImage.substring(0, 20) + "...생략(omit)..."
             reviewResultJsonObject.put("ocr_masking_image", maskingImage)
+        }
+        if (faceImage !== "null") {
+            faceImage = faceImage.substring(0, 20) + "...생략(omit)..."
+            reviewResultJsonObject.put("ocr_face_image", faceImage)
         }
         JsonObject.put("review_result", reviewResultJsonObject)
         return JsonObject

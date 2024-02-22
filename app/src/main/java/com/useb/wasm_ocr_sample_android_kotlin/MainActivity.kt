@@ -1,11 +1,10 @@
 package com.useb.wasm_ocr_sample_android_kotlin
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View.OnClickListener
+import androidx.appcompat.app.AppCompatActivity
 import com.useb.wasm_ocr_sample_android_kotlin.databinding.ActivityMainBinding
-import kotlin.collections.ArrayList
 
 class MainActivity : AppCompatActivity() {
     private var binding: ActivityMainBinding? = null
@@ -17,7 +16,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding!!.root)
         val btnOnClickListener = OnClickListener {
             val secondIntent = Intent(applicationContext, WebViewActivity::class.java)
-            if (sendDataToWebview(secondIntent, it.tag.toString() )) {
+            if (sendDataToWebview(secondIntent, it.tag.toString(), binding!!.btnEncryptMode.isChecked)) {
                 startActivity(secondIntent)
             }
         }
@@ -31,10 +30,11 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    private fun sendDataToWebview(secondIntent: Intent, scanType: String): Boolean {
+    private fun sendDataToWebview(secondIntent: Intent, scanType: String, useEncryptMode: Boolean): Boolean {
         if (!isValid(scanType)) return false
 
         secondIntent.putExtra("scanType", scanType)
+        secondIntent.putExtra("useEncryptMode", if (useEncryptMode) "true" else "false")
         return true
     }
 
