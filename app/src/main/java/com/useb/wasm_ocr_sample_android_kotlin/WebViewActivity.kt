@@ -38,6 +38,7 @@ class WebViewActivity : AppCompatActivity() {
         binding = ActivityWebViewBinding.inflate(layoutInflater)
         setContentView(binding!!.root)
         binding!!.btnClose.setOnClickListener {
+            webview!!.destroy()
             finish()
         }
         // 웹뷰 설정
