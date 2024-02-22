@@ -54,6 +54,18 @@ class ReportActivity : AppCompatActivity() {
                 val iv = findViewById<ImageView>(R.id.originalImageView)
                 iv.visibility = View.VISIBLE
                 iv.setImageBitmap(bitmap)
+            } else if (intent.hasExtra("originalImageEncrypted")) {
+                val encryptedImage = intent.getStringExtra("originalImageEncrypted")
+                val tv = findViewById<TextView>(R.id.textOriginalImage)
+                if (reviewResult.getString("ocr_type") == "credit") {
+                    tv.text = "- 신용카드 원본 사진"
+                } else {
+                    tv.text = "- 신분증 원본 사진"
+                }
+                tv.visibility = View.VISIBLE
+                val tv2 = findViewById<TextView>(R.id.textEncryptedOriginal)
+                tv2.text = encryptedImage
+                tv2.visibility = View.VISIBLE
             }
             if (intent.hasExtra("maskedImage")) {
                 val byteArray = intent.getByteArrayExtra("maskedImage")
@@ -68,6 +80,18 @@ class ReportActivity : AppCompatActivity() {
                 val iv = findViewById<ImageView>(R.id.maskedImageView)
                 iv.visibility = View.VISIBLE
                 iv.setImageBitmap(bitmap)
+            } else if (intent.hasExtra("maskedImageEncrypted")) {
+                val encryptedImage = intent.getStringExtra("maskedImageEncrypted")
+                val tv = findViewById<TextView>(R.id.textMaskImage)
+                if (reviewResult.getString("ocr_type") == "credit") {
+                    tv.text = "- 신용카드 원본 사진"
+                } else {
+                    tv.text = "- 신분증 원본 사진"
+                }
+                tv.visibility = View.VISIBLE
+                val tv2 = findViewById<TextView>(R.id.textEncryptedMaskImage)
+                tv2.text = encryptedImage
+                tv2.visibility = View.VISIBLE
             }
             val detailTv = findViewById<TextView>(R.id.detail)
             detailTv.text = detail
