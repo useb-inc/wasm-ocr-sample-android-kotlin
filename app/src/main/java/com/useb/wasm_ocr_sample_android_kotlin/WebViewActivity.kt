@@ -22,6 +22,7 @@ import java.io.ByteArrayOutputStream
 import java.io.UnsupportedEncodingException
 import java.net.URLDecoder
 import java.net.URLEncoder
+import java.util.Objects
 
 class WebViewActivity : AppCompatActivity() {
     private var binding: ActivityWebViewBinding? = null
@@ -93,7 +94,7 @@ class WebViewActivity : AppCompatActivity() {
     private fun dataToJson(ocrType: String?): JSONObject {
         val settings = JSONObject()
         settings.put("licenseKey", this.OCR_LICENSE_KEY)
-        settings.put("useEncryptMode", intent.getStringExtra("useEncryptMode"))
+        settings.put("useEncryptMode", Objects.equals(intent.getStringExtra("useEncryptMode"), "true"))
         val jsonObject = JSONObject()
         jsonObject.put("ocrType", ocrType)
         jsonObject.put("settings", settings)
