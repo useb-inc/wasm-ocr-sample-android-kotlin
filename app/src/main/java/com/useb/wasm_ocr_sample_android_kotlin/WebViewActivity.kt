@@ -30,11 +30,13 @@ class WebViewActivity : AppCompatActivity() {
     private val OCR_LICENSE_KEY =
         "FPkTBLFIa/Tn/mCZ5WKPlcuDxyb2bJVPSURXacnhj2d82wm39/tFIjCPpMsiXoPxGbN6G6l5gSLMBfwB6nwgIJZFWX0WlS1Jl49321wADP7yEhxE="
 
+    var url = "https://ocr.useb.co.kr/ocr.html"
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_web_view)
-        val url = "https://ocr.useb.co.kr/ocr.html"
+
         // 바인딩 설정
         binding = ActivityWebViewBinding.inflate(layoutInflater)
         setContentView(binding!!.root)
@@ -69,7 +71,6 @@ class WebViewActivity : AppCompatActivity() {
         val handler = Handler()
         handler.post(Runnable { // 카메라 권한 요청
             cameraAuthRequest()
-            webview!!.loadUrl(url)
             webview!!.webViewClient = object : WebViewClient() {
                 override fun onPageFinished(view: WebView, url: String) {
                     webview!!.loadUrl("javascript:usebwasmocrreceive('$encodedUserInfo')")
@@ -260,6 +261,8 @@ class WebViewActivity : AppCompatActivity() {
                 arrayOf(Manifest.permission.CAMERA),
                 1000
             )
+        } else {
+            webview!!.loadUrl(url)
         }
     }
 
@@ -269,6 +272,7 @@ class WebViewActivity : AppCompatActivity() {
         grantResults: IntArray
     ) {
         super.onRequestPermissionsResult(requestCode, permissions!!, grantResults)
+
         if (requestCode == 1000) {
             if (grantResults[0] != PackageManager.PERMISSION_GRANTED) {
                 Toast.makeText(
@@ -277,6 +281,8 @@ class WebViewActivity : AppCompatActivity() {
                     Toast.LENGTH_SHORT
                 ).show()
                 finish()
+            } else {
+                webview!!.loadUrl(url)
             }
         }
     }
