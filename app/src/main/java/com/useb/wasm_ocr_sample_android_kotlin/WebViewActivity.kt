@@ -126,13 +126,13 @@ class WebViewActivity : AppCompatActivity() {
             val jsonData = JSONObject(decodedData)
             val reviewResult = JSONObject(jsonData.getString("review_result"))
             var ocrType = reviewResult.getString("ocr_type")
-            ocrType = if (ocrType == "idcard") {
+            ocrType = if (ocrType.startsWith("idcard")) {
                 "주민증록증/운전면허증"
-            } else if (ocrType == "passport") {
+            } else if (ocrType.startsWith("passport")) {
                 "국내/해외여권"
-            } else if (ocrType == "alien") {
+            } else if (ocrType.startsWith("alien")) {
                 "외국인등록증"
-            } else if (ocrType == "credit") {
+            } else if (ocrType.startsWith("credit")) {
                 "신용카드"
             } else {
                 "INVALID_TYPE"
