@@ -29,8 +29,9 @@ class WebViewActivity : AppCompatActivity() {
     private var webview: WebView? = null
     private val OCR_LICENSE_KEY =
         "FPkTB86ym/u+5Gr2Ffvg5BnN8Jh2J64u8l920gwXmvv5/dxlwtGKhNiw9/aeBXRRSYE+5ylxEWRzk4sD8wAbS5xHeZXBw7o9H2fsoxx0FicsaNh0="
+    private val OCR_RESOURCE_BASE_URL = "file:///android_asset/"
 
-    var url = "https://ocr.useb.co.kr/ocr.html"
+    var url = "file:///android_asset/ocr.html"
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -52,6 +53,11 @@ class WebViewActivity : AppCompatActivity() {
         webview!!.addJavascriptInterface(this, "usebwasmocr")
         webview!!.settings.setAppCacheEnabled(false)
         webview!!.settings.cacheMode = WebSettings.LOAD_NO_CACHE
+
+        // 파일 유형 설정
+        webview!!.settings.allowFileAccess = true // 파일 액세스 허용
+        webview!!.settings.allowFileAccessFromFileURLs = true // 파일 URL로부터의 액세스 허용
+        webview!!.settings.allowUniversalAccessFromFileURLs = true // 모든 파일로부터의 액세스 허용
 
         // 사용자 데이터 인코딩
         val encodedUserInfo: String = encodeJson()
@@ -95,6 +101,7 @@ class WebViewActivity : AppCompatActivity() {
     private fun dataToJson(ocrType: String?): JSONObject {
         val settings = JSONObject()
         settings.put("licenseKey", this.OCR_LICENSE_KEY)
+        settings.put("resourceBaseUrl", OCR_RESOURCE_BASE_URL)
         settings.put("useEncryptMode", Objects.equals(intent.getStringExtra("useEncryptMode"), "true"))
         val jsonObject = JSONObject()
         jsonObject.put("ocrType", ocrType)
