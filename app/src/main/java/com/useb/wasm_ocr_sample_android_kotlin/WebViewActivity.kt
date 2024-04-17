@@ -28,7 +28,7 @@ class WebViewActivity : AppCompatActivity() {
     private var binding: ActivityWebViewBinding? = null
     private var webview: WebView? = null
     private val OCR_LICENSE_KEY =
-        "FPkTBLFIa/Tn/mCZ5WKPlcuDxyb2bJVPSURXacnhj2d82wm39/tFIjCPpMsiXoPxGbN6G6l5gSLMBfwB6nwgIJZFWX0WlS1Jl49321wADP7yEhxE="
+        "FPkTB86ym/u+5Gr2Ffvg5BnN8Jh2J64u8l920gwXmvv5/dxlwtGKhNiw9/aeBXRRSYE+5ylxEWRzk4sD8wAbS5xHeZXBw7o9H2fsoxx0FicsaNh0="
 
     var url = "https://ocr.useb.co.kr/ocr.html"
 
